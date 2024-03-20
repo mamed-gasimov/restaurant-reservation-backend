@@ -1,11 +1,22 @@
-import { NextFunction, Request, Response } from 'express';
+import { NextFunction, Response } from 'express';
 
-const registerController = async (req: Request, res: Response, next: NextFunction) => {
+import { ExtendedRequest } from '@typeDefinitions/express';
+import { createUser, findUserByEmail } from '@services/auth';
+import { HTTP_STATUSES } from '@typeDefinitions/general';
+import { CustomError } from '@middlewares/errorHandler';
+
+const registerController = async (req: ExtendedRequest, res: Response, next: NextFunction) => {
   try {
-    console.log('reg');
-    res.json();
+    const existedUser = await findUserByEmail(req.body.email);
+    if (existedUser) {
+      return res.status(HTTP_STATUSES.BAD_REQUEST).json({ message: 'User already exists!' });
+    }
+
+    await createUser(req.body);
+    res.status(HTTP_STATUSES.CREATED).json({ message: 'User was successfully created!' });
   } catch (err) {
-    next(err);
+    const error = new CustomError(HTTP_STATUSES.INTERNAL_SERVER_ERROR);
+    next(error);
   }
 };
 

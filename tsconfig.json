@@ -11,11 +11,13 @@
     "baseUrl": ".",
     "skipLibCheck": true,
     "paths": {
-      "@middleware/*": ["src/middleware/*"],
+      "@middlewares/*": ["src/middlewares/*"],
       "@models/*": ["src/models/*"],
       "@routes/*": ["src/routes/*"],
       "@services/*": ["src/services/*"],
-      "@controllers/*": ["src/controllers/*"]
+      "@controllers/*": ["src/controllers/*"],
+      "@typeDefinitions/*": ["src/types/*"],
+      "@validationSchemas/*": ["src/validationSchemas/*"]
     },
     "plugins": [
       { "transform": "typescript-transform-paths" },
