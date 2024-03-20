@@ -1,0 +1,49 @@
+{
+  "name": "restaurant-reservation-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsc && tsc-alias -w & cross-env NODE_ENV=development nodemon -r tsconfig-paths/register ./src/app.ts",
+    "migrations:dev": "cross-env NODE_ENV=development node ./migrate.js",
+    "migrations:dev:up": "npm run migrations:dev -- up",
+    "migrations:dev:down": "npm run migrations:dev -- down",
+    "lint": "eslint './src/**/*.ts'",
+    "lint:fix": "npm run lint -- --fix",
+    "format:check": "prettier --check 'src/**/*.{ts, json}'",
+    "format": "prettier --write 'src/**/*.{ts, json}'"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.18.3",
+    "helmet": "^7.1.0",
+    "joi": "^17.12.2",
+    "mongoose": "^8.2.2"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.57.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-config-standard-with-typescript": "^43.0.1",
+    "eslint-import-resolver-typescript": "^3.6.1",
+    "nodemon": "^3.1.0",
+    "prettier": "^3.2.5",
+    "ts-node": "^10.9.2",
+    "tsc-alias": "^1.8.8",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.4.2",
+    "typescript-transform-paths": "^3.4.7",
+    "umzug": "^3.7.0"
+  }
+}
