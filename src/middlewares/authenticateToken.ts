@@ -5,7 +5,7 @@ import { HTTP_STATUSES } from '@typeDefinitions/general';
 import { ExtendedRequest } from '@typeDefinitions/express';
 import { CustomError } from './errorHandler';
 
-export const authenticateToken = (req: ExtendedRequest, res: Response, next: NextFunction) => {
+export const authenticateToken = (req: ExtendedRequest, _res: Response, next: NextFunction) => {
   const authHeader = req.headers['authorization'];
   let token = null;
 
