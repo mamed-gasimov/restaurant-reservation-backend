@@ -4,7 +4,7 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import { config } from 'dotenv';
 
-import { authRoutes, restaurantRoutes } from '@routes/index';
+import { authRoutes, reservationRoutes, restaurantRoutes } from '@routes/index';
 import { errorHandler } from '@middlewares/errorHandler';
 
 config();
@@ -21,6 +21,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use('/api/auth', authRoutes);
 app.use('/api/restaurants', restaurantRoutes);
+app.use('/api/reservations', reservationRoutes);
 
 app.use(errorHandler);
 
