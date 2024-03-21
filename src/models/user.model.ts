@@ -10,11 +10,11 @@ const userSchema: Schema = new Schema(
   {
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
-    email: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     isRestaurantOwner: { type: Boolean },
     restaurant: {
-      id: { type: ObjectId },
+      id: { type: ObjectId, ref: 'Restaurant' },
       name: { type: String },
     },
   },
