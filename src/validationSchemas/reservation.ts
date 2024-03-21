@@ -25,3 +25,14 @@ export const reservationSchema = Joi.object().keys({
     'string.base': 'additionalNotes must be valid',
   }),
 });
+
+export const updateReservationSchema = Joi.object().keys({
+  reservationId: Joi.string().trim().required().messages({
+    'string.base': 'reservationId must be valid',
+    'string.required': 'reservationId must be valid',
+  }),
+  status: Joi.string().trim().valid('approved', 'rejected').required().messages({
+    'string.base': 'status must be valid',
+    'string.required': 'status must be valid',
+  }),
+});

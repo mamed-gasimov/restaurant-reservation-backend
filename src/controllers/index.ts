@@ -6,3 +6,4 @@ export { default as getRestaurantsController } from './restaurants/getRestaurant
 export { default as getSingleRestaurant } from './restaurants/getSingleRestaurant.controller';
 
 export { default as createReservationController } from './reservations/createReservation.controller';
+export { default as updateReservationController } from './reservations/updateReservation.controller';

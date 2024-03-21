@@ -1,13 +1,13 @@
 import express from 'express';
 
-import { createReservationController } from '@controllers/index';
+import { createReservationController, updateReservationController } from '@controllers/index';
 import { authenticateToken } from '@middlewares/authenticateToken';
 import { validateSchema } from '@middlewares/validateSchema';
-import { reservationSchema } from '@validationSchemas/reservation';
+import { reservationSchema, updateReservationSchema } from '@validationSchemas/reservation';
 
 const router = express.Router();
 
 router.post('/', authenticateToken, validateSchema(reservationSchema), createReservationController);
-router.put('/:reservationId');
+router.put('/', authenticateToken, validateSchema(updateReservationSchema), updateReservationController);
 
 export default router;
