@@ -1,4 +1,5 @@
 import { NextFunction, Response } from 'express';
+import { ObjectId } from 'mongodb';
 import { Types } from 'mongoose';
 
 import { ExtendedRequest } from '@typeDefinitions/express';
@@ -11,14 +12,15 @@ import { RestaurantOwnerUser } from '@typeDefinitions/user';
 
 const createReservationController = async (req: ExtendedRequest, res: Response, next: NextFunction) => {
   try {
-    const { userId, restaurantId } = req.body;
+    const { restaurantId } = req.body;
 
-    if (!Types.ObjectId.isValid(userId) || !Types.ObjectId.isValid(restaurantId)) {
+    if (!Types.ObjectId.isValid(restaurantId)) {
       const error = new CustomError(HTTP_STATUSES.BAD_REQUEST, 'Id must be valid!');
       return next(error);
     }
 
-    const user = (await findUserById(userId)) as RestaurantOwnerUser;
+    const userId = req.user as unknown as { id: string };
+    const user = (await findUserById(new ObjectId(userId.id))) as RestaurantOwnerUser;
     if (!user) {
       const error = new CustomError(HTTP_STATUSES.NOT_FOUND, 'User was not found!');
       return next(error);
@@ -36,7 +38,7 @@ const createReservationController = async (req: ExtendedRequest, res: Response, 
       return next(error);
     }
 
-    const data = { ...req.body, status: 'pending' };
+    const data = { ...req.body, userId: userId.id, status: 'pending' };
     const reservation = await createReservation(data);
     res.status(HTTP_STATUSES.OK).json({ message: 'Reservation was successfully created!', reservation });
   } catch (err) {

@@ -7,8 +7,6 @@ const restaurantSchema: Schema = new Schema(
     name: { type: String, required: true, unique: true },
     description: { type: String, required: true },
     image: { type: String, required: true },
-    startingHour: { type: String, required: true },
-    closingHour: { type: String, required: true },
   },
   { timestamps: true },
 );
