@@ -12,3 +12,7 @@ export const getReservationById = async (reservationId: string) => {
 export const updateReservation = async (reservationId: string, status: 'approved' | 'rejected') => {
   return ReservationModel.findOneAndUpdate({ _id: reservationId }, { status });
 };
+
+export const getReservationsByRestaurantId = async (restaurantId: string) => {
+  return ReservationModel.find({ restaurantId });
+};

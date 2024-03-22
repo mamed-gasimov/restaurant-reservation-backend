@@ -24,7 +24,8 @@ const updateReservationController = async (req: ExtendedRequest, res: Response, 
       return next(error);
     }
 
-    const currentUser = (await findUserById(new ObjectId(req.user))) as RestaurantOwnerUser;
+    const userId = req.user as unknown as { id: string };
+    const currentUser = (await findUserById(new ObjectId(userId.id))) as RestaurantOwnerUser;
     if (currentUser?.restaurant?.id?.toString() !== reservation.restaurantId) {
       const error = new CustomError(
         HTTP_STATUSES.FORBIDDEN,

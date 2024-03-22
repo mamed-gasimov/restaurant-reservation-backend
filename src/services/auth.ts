@@ -9,7 +9,7 @@ export const findUserByEmail = async (email: string) => {
 };
 
 export const findUserById = async (id: Types.ObjectId) => {
-  return UserModel.findOne({ _id: id });
+  return UserModel.findOne({ _id: id }).exec();
 };
 
 export const createUser = async (user: User) => {
