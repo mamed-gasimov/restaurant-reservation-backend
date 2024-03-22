@@ -6,6 +6,7 @@ import { ExtendedRequest } from '@typeDefinitions/express';
 import { CustomError } from '@middlewares/errorHandler';
 import { HTTP_STATUSES } from '@typeDefinitions/general';
 import { createUserAccessToken, findUserAccessToken, findUserByEmail, updateUserAccessToken } from '@services/auth';
+import { User } from '@typeDefinitions/user';
 
 const loginController = async (req: ExtendedRequest, res: Response, next: NextFunction) => {
   try {
@@ -32,9 +33,12 @@ const loginController = async (req: ExtendedRequest, res: Response, next: NextFu
       await updateUserAccessToken(existedUser._id, accessToken);
     }
 
+    const info = existedUser as unknown as { _doc: User };
+    const userInfo = { ...info._doc };
+    delete userInfo.password;
     res
       .status(HTTP_STATUSES.OK)
-      .json({ message: 'You were successfully logged in.', token: accessToken, userId: existedUser._id });
+      .json({ message: 'You were successfully logged in.', token: accessToken, user: userInfo });
   } catch (err) {
     const error = new CustomError(HTTP_STATUSES.INTERNAL_SERVER_ERROR);
     console.log(err);
